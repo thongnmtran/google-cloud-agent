@@ -1,0 +1,15 @@
+export function importClass(package: any): any;
+export function importEnum(package: any): any;
+export function importMethod(package: any): any;
+import DriverManager = require("./controllers/DriverManager");
+import KatalonDriver = require("./core/KatalonDriver");
+export const Katalon: KatalonDriver;
+export const findTestObject: any;
+export const FailureHandling: any;
+export function delay(timeout?: number): Promise<any>;
+export function cloneClass(clazz: any): any;
+export const WebUI: any;
+export const Mobile: any;
+export const Windows: any;
+export const WS: any;
+export { DriverManager, KatalonDriver };

@@ -1,0 +1,12 @@
+export function type(name: any, handler: any): any;
+import DriverManager = require("./DriverManager");
+export const Katalon: KatalonDriver;
+export const findTestObject: any;
+export const FailureHandling: any;
+export function delay(timeout?: number): Promise<any>;
+export const WebUI: any;
+export const Mobile: any;
+export const Windows: any;
+export const WS: any;
+import KatalonDriver = require("../core/KatalonDriver");
+export { DriverManager };

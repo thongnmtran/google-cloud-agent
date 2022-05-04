@@ -1,0 +1,2 @@
+websockets==8.1
+eventemitter==0.2.0

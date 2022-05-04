@@ -1,0 +1,23 @@
+{
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "python.linting.banditEnabled": false,
+  "python.linting.prospectorEnabled": false,
+  "python.linting.flake8Enabled": false,
+  "python.autoComplete.extraPaths": [
+    "D:/workspace/Katalon Javascript/Include/Python",
+    "~/google-cloud-sdk/platform/google_appengine/lib/webapp2-2.5.2",
+    "~/google-cloud-sdk/platform/google_appengine",
+    "~/google-cloud-sdk/lib",
+    "~/google-cloud-sdk/platform/google_appengine/lib/endpoints-1.0",
+    "~/google-cloud-sdk/platform/google_appengine/lib/protorpc-1.0"
+  ],
+  "files.exclude": {
+    ".build": false,
+    ".profile-oss": true,
+    "**/.DS_Store": true,
+    "build/**/*.js": {
+      "when": "$(basename).ts"
+    }
+  },
+}
