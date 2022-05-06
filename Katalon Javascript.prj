@@ -6,7 +6,7 @@
    <UUID>c3e5b9f0-b692-43a0-b835-06620c836e24</UUID>
    <migratedVersion>5.9.0</migratedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
-   <projectFileLocation>D:\workspace\Katalon Javascript\Katalon Javascript.prj</projectFileLocation>
+   <projectFileLocation>D:\Lab\google-cloud-agent\Katalon Javascript.prj</projectFileLocation>
    <sourceContent>
       <sourceFolderList>
          <sourceFolderConfiguration>
@@ -25,5 +25,6 @@
          </systemFolderConfiguration>
       </systemFolderList>
    </sourceContent>
+   <timeStampInProperties>true</timeStampInProperties>
    <type>WEBUI</type>
 </Project>
