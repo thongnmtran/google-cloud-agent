@@ -24,16 +24,16 @@ function loggingProxy(target) {
   return proxy(target, LoggingHandler);
 }
 
-function importClass(package) {
-  return type(package, ClassProxy);
+function importClass(packagez) {
+  return type(packagez, ClassProxy);
 }
 
-function importEnum(package) {
-  return type(package, EnumProxy);
+function importEnum(packagez) {
+  return type(packagez, EnumProxy);
 }
 
-function importMethod(package) {
-  return type(package, MethodProxy);
+function importMethod(packagez) {
+  return type(packagez, MethodProxy);
 }
 
 function delay(timeout = 0) {

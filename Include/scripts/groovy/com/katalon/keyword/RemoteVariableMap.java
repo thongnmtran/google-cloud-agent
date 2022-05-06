@@ -1,7 +1,6 @@
 package com.katalon.keyword;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Map.Entry;
 
 public class RemoteVariableMap extends HashMap<String, RemoteVariable> {
 	private static final long serialVersionUID = 1L;
