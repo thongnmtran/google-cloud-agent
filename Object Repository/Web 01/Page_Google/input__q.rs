@@ -6,15 +6,27 @@
    <elementGuidId>3b8af9e5-dab5-43d3-9112-7cea5c25cba7</elementGuidId>
    <selectorCollection>
       <entry>
-         <key>XPATH</key>
-         <value>//input[@name='q']</value>
-      </entry>
-      <entry>
          <key>CSS</key>
          <value>input[name=&quot;q&quot;]</value>
       </entry>
+      <entry>
+         <key>XPATH</key>
+         <value>Captured: //.header/div/div/nav/.toolbar-wrapper/.toolbar/.toolbar-inner/div/div/.target-button
+
+[Target]
+- //.header//.toolbar//.target-button
+- //.header//.toolbar//.sibling-button/../../ ~ *//.target-button
+
+[]
+
+</value>
+      </entry>
+      <entry>
+         <key>BASIC</key>
+         <value>//*[@name = 'q' and @type = 'text' and @title = 'Tìm kiếm']</value>
+      </entry>
    </selectorCollection>
-   <selectorMethod>XPATH</selectorMethod>
+   <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>true</useRalativeImagePath>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -22,6 +34,7 @@
       <name>tag</name>
       <type>Main</type>
       <value>input</value>
+      <webElementGuid>2acd9247-dfb5-4cda-91c5-b8f438a4673b</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -29,6 +42,7 @@
       <name>class</name>
       <type>Main</type>
       <value>gLFyf gsfi</value>
+      <webElementGuid>29e79d64-6d3c-4e98-abd0-f65e1327c1a7</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -36,6 +50,7 @@
       <name>jsaction</name>
       <type>Main</type>
       <value>paste:puy29d;</value>
+      <webElementGuid>6bf7ece5-57ea-41b4-bf40-d29b74bfab9c</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -43,6 +58,7 @@
       <name>maxlength</name>
       <type>Main</type>
       <value>2048</value>
+      <webElementGuid>5a87c1ff-7f4e-4cc9-a35d-4d0072628369</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -50,6 +66,7 @@
       <name>name</name>
       <type>Main</type>
       <value>q</value>
+      <webElementGuid>3323603f-a2b8-4dfd-8775-8e0730bb3e61</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -57,6 +74,7 @@
       <name>type</name>
       <type>Main</type>
       <value>text</value>
+      <webElementGuid>39bc9584-9ca5-4a3e-a4bf-2f824b328aad</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -64,6 +82,7 @@
       <name>aria-autocomplete</name>
       <type>Main</type>
       <value>both</value>
+      <webElementGuid>c35a35c6-2eb4-4397-bfa2-164d939e45aa</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -71,6 +90,7 @@
       <name>aria-haspopup</name>
       <type>Main</type>
       <value>false</value>
+      <webElementGuid>4c039a7a-59e4-4d0e-9bb4-582683274bbb</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -78,6 +98,7 @@
       <name>autocapitalize</name>
       <type>Main</type>
       <value>off</value>
+      <webElementGuid>cb2edaed-d3bd-42fd-8493-2a62a332e335</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -85,6 +106,7 @@
       <name>autocomplete</name>
       <type>Main</type>
       <value>off</value>
+      <webElementGuid>b4881d78-41b1-481c-8ce7-49620a9096f4</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -92,6 +114,7 @@
       <name>autocorrect</name>
       <type>Main</type>
       <value>off</value>
+      <webElementGuid>14b98921-fa1e-4623-8494-2d7140832534</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -99,6 +122,7 @@
       <name>role</name>
       <type>Main</type>
       <value>combobox</value>
+      <webElementGuid>3f810c0b-51ef-4322-9aae-04006e083c1a</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -106,6 +130,7 @@
       <name>spellcheck</name>
       <type>Main</type>
       <value>false</value>
+      <webElementGuid>9c0367d0-b8d1-47ba-bb88-54f1745f888c</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>true</isSelected>
@@ -113,6 +138,7 @@
       <name>title</name>
       <type>Main</type>
       <value>Tìm kiếm</value>
+      <webElementGuid>96687b04-61aa-4703-846f-7bb350106873</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -120,6 +146,7 @@
       <name>aria-label</name>
       <type>Main</type>
       <value>Tìm kiếm</value>
+      <webElementGuid>871569bd-a18a-4de0-b615-906709530e22</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -127,6 +154,7 @@
       <name>data-ved</name>
       <type>Main</type>
       <value>0ahUKEwi9m4LAtdfvAhWKdd4KHe-rCO0Q39UDCAQ</value>
+      <webElementGuid>c3e734d5-da8b-4c79-a608-0018819f001f</webElementGuid>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
@@ -134,6 +162,7 @@
       <name>xpath</name>
       <type>Main</type>
       <value>/html[1]/body[1]/div[@class=&quot;L3eUgb&quot;]/div[@class=&quot;o3j99 ikrT4e om7nvf&quot;]/form[1]/div[1]/div[@class=&quot;A8SBwf&quot;]/div[@class=&quot;RNNXgb&quot;]/div[@class=&quot;SDkEP&quot;]/div[@class=&quot;a4bIc&quot;]/input[@class=&quot;gLFyf gsfi&quot;]</value>
+      <webElementGuid>e2c246d8-def9-481b-bb67-599cb9443d7c</webElementGuid>
    </webElementProperties>
    <webElementXpaths>
       <isSelected>true</isSelected>
@@ -141,6 +170,7 @@
       <name>xpath:attributes</name>
       <type>Main</type>
       <value>//input[@name='q']</value>
+      <webElementGuid>5e8d70f3-c107-4f6d-9b51-169b522ca613</webElementGuid>
    </webElementXpaths>
    <webElementXpaths>
       <isSelected>false</isSelected>
@@ -148,5 +178,6 @@
       <name>xpath:position</name>
       <type>Main</type>
       <value>//input</value>
+      <webElementGuid>f9cd3872-65c3-4618-8f24-09056822460a</webElementGuid>
    </webElementXpaths>
 </WebElementEntity>

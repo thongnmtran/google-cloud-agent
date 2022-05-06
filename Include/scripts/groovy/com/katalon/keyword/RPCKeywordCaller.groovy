@@ -88,11 +88,7 @@ public class RPCKeywordCaller {
 		StaticMethodMap.put("findTestData", TestDataFactory.class);
 	}
 
-	public static List<String> PRIMITIY_TYPE = [
-		"number",
-		"string",
-		"boolean"
-	];
+	public static List<String> PRIMITIY_TYPE = ["number", "string", "boolean"];
 
 	private static Gson gson = new Gson();
 
