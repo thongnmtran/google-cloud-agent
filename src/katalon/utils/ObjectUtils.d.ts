@@ -1,4 +1,4 @@
 declare class ObjectUtils {
-  static instance<Type>(object: Type, instance: Type): Type;
+  static getInstance<Type>(object: Type, instance: Type): Type;
 }
 export = ObjectUtils;

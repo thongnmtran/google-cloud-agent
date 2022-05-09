@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     katalon: './src/katalon/index.js',
     firstTest: './src/tests/Web/1. My First Javascript Test Case.js',
+    sessionManager: './src/tests/Web/0. Session Manager.js',
   },
   output: {
     filename: '[name].js',

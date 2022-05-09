@@ -5,24 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: Main File",
-      "type": "python",
-      "request": "launch",
-      "program": "${cwd}/Include/Python/main.py",
-      "console": "integratedTerminal"
-    },
-    {
-      "name": "Python: Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal"
-    },
-    {
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "name": "Current JS file",
-      "program": "${file}",
+      "name": "Session Manager",
+      "program": "${workspaceFolder}/build/sessionManager.js",
       "request": "launch",
       "restart": true,
       "runtimeExecutable": "nodemon",
@@ -31,7 +17,7 @@
       ],
       "args": [
         "--watch",
-        "${workspaceFolder}/src",
+        "${workspaceFolder}/build",
         "--delay",
         "1.5"
       ],
@@ -55,6 +41,39 @@
         "1.5"
       ],
       "type": "node"
+    },
+    {
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "name": "Current JS file",
+      "program": "${file}",
+      "request": "launch",
+      "restart": true,
+      "runtimeExecutable": "nodemon",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "args": [
+        "--watch",
+        "${workspaceFolder}/src",
+        "--delay",
+        "1.5"
+      ],
+      "type": "node"
+    },
+    {
+      "name": "Python: Main File",
+      "type": "python",
+      "request": "launch",
+      "program": "${cwd}/Include/Python/main.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
     }
   ]
 }

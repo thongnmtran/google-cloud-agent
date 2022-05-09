@@ -1,7 +1,7 @@
 
 
 module.exports = class ObjectUtils {
-  static instance(object, instance) {
+  static getInstance(object, instance) {
     const instanceProp = Object.getOwnPropertyDescriptor(object, 'instance');
     if (!instanceProp || instanceProp.writable !== false) {
       Object.defineProperty(object, 'instance', {

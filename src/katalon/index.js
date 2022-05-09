@@ -7,6 +7,8 @@ const TypeUtils = require('./core/TypeUtils');
 const KatalonDriver = require('./core/KatalonDriver');
 const DriverManager = require('./controllers/DriverManager');
 const KeywordLogger = require('./logger/KeywordLogger');
+const KatalonSession = require('./core/KatalonSession');
+const SessionManager = require('./controllers/SessionManager');
 
 
 function proxy(target, handler) {
@@ -78,6 +80,8 @@ module.exports = {
   DriverManager,
   KatalonDriver,
   KeywordLogger,
+  KatalonSession,
+  SessionManager,
   Katalon,
   findTestObject,
   FailureHandling,

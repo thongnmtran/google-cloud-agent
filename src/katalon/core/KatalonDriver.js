@@ -41,7 +41,7 @@ class KatalonDriver {
     this.session.onClose(() => {
       console.log(`[${this.id}] ${KatalonDriver.LOG_HEADER} Disconnected from the Katalon RPC Server`);
     });
-    this.session.onError(() => {
+    this.session.onError((error) => {
       console.log(`[${this.id}] ${KatalonDriver.LOG_HEADER} An error occurred in the connection with Katalon RPC Server`);
     });
     this.session.onReady(() => {

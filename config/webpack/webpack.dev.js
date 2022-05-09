@@ -9,7 +9,7 @@ module.exports = merge(common, {
     devMiddleware: {
       index: true,
       mimeTypes: { phtml: 'text/html' },
-      publicPath: '/publicPathForDevServe',
+      publicPath: '/build',
       serverSideRender: true,
       writeToDisk: true,
     },

@@ -32,7 +32,9 @@ println "Current working dir: ${curWorkingDir}"
 
 def server = KatalonRPCServer.create(4444);
 
-File jsFile = new File("build/firstTest.js");
+//File jsFile = new File("build/firstTest.js");
+File jsFile = new File("build/sessionManager.js");
+
 def nodeJsPath = new File("Drivers/node").getCanonicalPath();
 ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync()
 def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
