@@ -65,6 +65,14 @@ public class KatalonRPCServer {
 		listen(false);
 	}
 
+	public void stop() {
+		try {
+			server.stop();
+		} catch (Exception error2) {
+			KeywordUtil.logInfo(error2.getMessage());
+		}
+	}
+
 	public void listen(boolean forever) {
 		try {
 			boolean connected = false;
@@ -80,11 +88,7 @@ public class KatalonRPCServer {
 				}
 			}
 		} catch (InterruptedException error1) {
-			try {
-				server.stop();
-			} catch (Exception error2) {
-				KeywordUtil.logInfo(error2.getMessage());
-			}
+			this.stop();
 		}
 		KeywordUtil.logInfo("Server stopped");
 	}

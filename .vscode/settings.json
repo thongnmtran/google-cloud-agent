@@ -18,6 +18,28 @@
     "**/.DS_Store": true,
     "build/**/*.js": {
       "when": "$(basename).ts"
-    }
-  },
+    },
+    "bin": true,
+    "build": false,
+    "Drivers": true,
+    "config": true,
+    "Libs": true,
+    "node_modules": true,
+    "Plugins": true,
+    "Scripts": true,
+    "settings": true,
+    ".settings": true,
+    ".cache": true,
+    ".classpath": true,
+    "*.prj": true,
+    "*.project": true,
+    ".eslintrc*": true,
+    "tsconfig*": true,
+    ".gitignore": true,
+    ".pylintrc": true,
+    "package-lock.json": true,
+    "build.gradle": true,
+    "console.properties": true,
+    // ".vscode": true,
+  }
 }

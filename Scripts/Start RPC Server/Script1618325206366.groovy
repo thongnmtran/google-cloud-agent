@@ -30,29 +30,13 @@ import org.openqa.selenium.Keys as Keys
 def curWorkingDir = System.getProperty("user.dir")
 println "Current working dir: ${curWorkingDir}"
 
-def runner = new Runnable() {
-	@Override
-	void run() {
-		Thread.sleep(3000);
-		File jsFile = new File("build/firstTest.js");
-		ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
-			.path(new File("Drivers").getCanonicalPath())
-			.execSync()
-		println "Done!"
-	}
-};
-def jsThread = new Thread(runner);
-jsThread.start();
+def server = KatalonRPCServer.create(4444);
 
-KatalonRPCServer.create(4444).listen(false); // server.listen(forever = false)
+File jsFile = new File("build/firstTest.js");
+ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
+	.path(new File("Drivers").getCanonicalPath())
+	.execSync();
 
-jsThread.interrupt()
+server.stop()
 
-jsThread.join()
-
-// KatalonRPCServer.create(4444).listen(); // Use this if you want to end the test after the first RPC Client closes the connection.
-
-
-
-
-
+// server.listen(forever)

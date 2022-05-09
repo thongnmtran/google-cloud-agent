@@ -4,8 +4,8 @@ module.exports = {
   target: 'node',
   mode: 'production',
   entry: {
-    katalon: './Include/Javascript/katalon/index.js',
-    firstTest: './Include/Javascript/tests/Web/1. My First Javascript Test Case.js',
+    katalon: './src/katalon/index.js',
+    firstTest: './src/tests/Web/1. My First Javascript Test Case.js',
   },
   output: {
     filename: '[name].js',
