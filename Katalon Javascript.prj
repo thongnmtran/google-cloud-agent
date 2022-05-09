@@ -25,6 +25,6 @@
          </systemFolderConfiguration>
       </systemFolderList>
    </sourceContent>
-   <timeStampInProperties>true</timeStampInProperties>
+   <timeStampInProperties>false</timeStampInProperties>
    <type>WEBUI</type>
 </Project>

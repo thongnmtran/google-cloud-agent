@@ -1,8 +1,15 @@
 const {
-  Katalon, WebUI, findTestObject, FailureHandling
+  Katalon, WebUI, findTestObject, FailureHandling, KeywordLogger
 } = require('../../katalon');
 
-Katalon.connect(4444);
+
+// KeywordLogger.instance.connect('ws://localhost:3000')
+KeywordLogger.instance.connect('wss://katalon-tunnel.herokuapp.com')
+  .then(() => {
+    Katalon.connect(4444);
+  });
+// Katalon.connect(4444);
+
 
 Katalon.onReady(async (driver) => {
   console.log('\r\n--- Execute My First "Hello World" Test! ---\r\n'.yellow);
@@ -32,6 +39,8 @@ Katalon.onReady(async (driver) => {
   await WebUI.closeBrowser();
 
   console.log('\r\n--- Done Executing My "Hello World" Test! ---\r\n'.yellow);
+
+  KeywordLogger.instance.disconnect();
 
   Katalon.close();
 });

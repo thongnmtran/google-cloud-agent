@@ -1,6 +1,5 @@
 const EventEmitter = require('events');
 const moment = require('moment');
-
 const { EventType } = require('./Constant');
 const ResultResolver = require('./ResultResolver');
 const TypeUtils = require('./TypeUtils');
@@ -49,6 +48,10 @@ class KatalonDriver {
       console.log(`[${this.id}] ${KatalonDriver.LOG_HEADER} Connected to the Katalon RPC Server`);
       this.eventEmitter.emit(EventType.ready, this);
     });
+  }
+
+  log(log) {
+    this.loggingSocket.emit('log', log);
   }
 
   close() {

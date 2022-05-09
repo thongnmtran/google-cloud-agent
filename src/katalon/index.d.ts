@@ -1,9 +1,12 @@
 /* eslint-disable no-shadow */
 
 import { WebDriver } from 'selenium-webdriver';
-import KatalonDriver = require('./core/KatalonDriver');
 
+import KeywordLoggerz = require('./logger/KeywordLogger');
+import KatalonDriver = require('./core/KatalonDriver');
 import DriverManager = require('./controllers/DriverManager');
+
+export const KeywordLogger = KeywordLoggerz;
 
 export class TestObject {
     parentObject: TestObject; // Typically is parent Frame

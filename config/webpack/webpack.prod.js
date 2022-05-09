@@ -1,4 +1,6 @@
 const { resolve } = require('path');
+const { CleanPlugin } = require('webpack');
+
 
 module.exports = {
   target: 'node',
@@ -27,5 +29,8 @@ module.exports = {
         ]
       },
     ]
-  }
+  },
+  plugins: [
+    new CleanPlugin()
+  ]
 };

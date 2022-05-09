@@ -4,39 +4,57 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-  {
-    "name":"Python: Main File",
-    "type":"python",
-    "request":"launch",
-    "program":"${cwd}/Include/Python/main.py",
-    "console":"integratedTerminal"
-  },
-  {
-    "name":"Python: Current File",
-    "type":"python",
-    "request":"launch",
-    "program":"${file}",
-    "console":"integratedTerminal"
-  },
-  {
-    "name": "Node: Current File",
-    "program": "${file}",
-    "request": "launch",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-    "type": "pwa-node",
-    "console": "integratedTerminal"
-  },
     {
-      "type": "pwa-node",
+      "name": "Python: Main File",
+      "type": "python",
       "request": "launch",
-      "name": "Node: First Test Case",
+      "program": "${cwd}/Include/Python/main.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "name": "Current JS file",
+      "program": "${file}",
+      "request": "launch",
+      "restart": true,
+      "runtimeExecutable": "nodemon",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Include/Javascript/My First Javascript Test Case.js",
-      "console": "integratedTerminal"
+      "args": [
+        "--watch",
+        "${workspaceFolder}/src",
+        "--delay",
+        "1.5"
+      ],
+      "type": "node"
+    },
+    {
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "name": "First JS test",
+      "program": "${workspaceFolder}/build/firstTest.js",
+      "request": "launch",
+      "restart": true,
+      "runtimeExecutable": "nodemon",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "args": [
+        "--watch",
+        "${workspaceFolder}/build",
+        "--delay",
+        "1.5"
+      ],
+      "type": "node"
     }
   ]
 }
