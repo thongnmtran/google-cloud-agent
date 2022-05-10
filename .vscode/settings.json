@@ -12,6 +12,9 @@
     "~/google-cloud-sdk/platform/google_appengine/lib/endpoints-1.0",
     "~/google-cloud-sdk/platform/google_appengine/lib/protorpc-1.0"
   ],
+  "[Log]": {
+    "editor.wordWrap": "on"
+  },
   "files.exclude": {
     ".build": false,
     ".profile-oss": true,
