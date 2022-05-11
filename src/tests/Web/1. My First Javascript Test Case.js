@@ -40,5 +40,7 @@ Katalon.onReady(async (driver) => {
 
   console.log('\r\n--- Done Executing My "Hello World" Test! ---\r\n'.yellow);
 
+  newSession.disconnect();
+
   Katalon.close();
 });
