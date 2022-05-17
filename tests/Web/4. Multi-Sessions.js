@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const {
   WebUI, findTestObject, KatalonDriver, cloneClass,
-} = require('../../katalon');
+} = require('../katalon');
 
 
 const WebUI1 = cloneClass(WebUI);

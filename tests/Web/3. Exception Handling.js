@@ -2,15 +2,12 @@
 /* eslint-disable no-restricted-syntax */
 const path = require('path');
 const {
-  Katalon, WebUI, /* findTestObject,  *//* FailureHandling, */
-  importClass, importEnum, importMethod
-} = require('../../katalon');
+  Katalon, WebUI, findTestObject, FailureHandling,
+  importClass
+} = require('../katalon');
 
 const scriptName = path.basename(__filename);
 
-const FailureHandling = importEnum('com.kms.katalon.core.model.FailureHandling');
-const findTestData = importMethod('com.kms.katalon.core.testdata.TestDataFactory.findTestData');
-const findTestObject = importMethod('com.kms.katalon.core.testobject.ObjectRepository.findTestObject');
 const RunConfiguration = importClass('com.kms.katalon.core.configuration.RunConfiguration');
 const GlobalVariable = importClass('internal.GlobalVariable');
 
@@ -32,7 +29,13 @@ Katalon.onReady(async () => {
 
   console.log('Is element present: ', result);
 
-  const a = await GlobalVariable.yourName;
+  try {
+    await WebUI.verifyElementNotPresent(input, 1, FailureHandling.STOP_ON_FAILURE);
+  } catch (error) {
+    console.log('\r\n--------------- quarantine --------------\r\n'.blue);
+    console.error('Error handling: \r\n', error);
+    console.log('\r\n-----------------------------------------\r\n'.blue);
+  }
 
   for (const text of ['Hello!', 'My name is', GlobalVariable.yourName]) {
     await WebUI.setText(input, text);

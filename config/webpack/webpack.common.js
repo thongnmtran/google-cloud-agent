@@ -6,9 +6,9 @@ module.exports = {
   target: 'node',
   mode: 'production',
   entry: {
-    katalon: './src/katalon/index.js',
-    firstTest: './src/tests/Web/1. My First Javascript Test Case.js',
-    sessionManager: './src/tests/Web/0. Session Manager.js',
+    katalon: './tests/katalon/index.js',
+    firstTest: './tests/Web/1. My First Javascript Test Case.js',
+    sessionManager: './tests/Web/0. Session Manager.js',
   },
   output: {
     filename: '[name].js',

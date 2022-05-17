@@ -1,7 +1,7 @@
 {
   // Change this to match your project
   "include": [
-    "src/katalon/**/*.js"
+    "**/*.js"
   ],
   "compilerOptions": {
     "noImplicitAny": true,
@@ -22,6 +22,6 @@
     // Types should go into this directory.
     // Removing this would place the .d.ts files
     // next to the .js files .
-    "outDir": "src/katalon/@types"
+    "outDir": "tests/katalon/@types"
   }
 }

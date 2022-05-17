@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "pip3 install -r ./Include/Python/katalon/requirements.txt",
+    "postinstall": "pip3 install -r ./tests/Python/katalon/requirements.txt",
     "doc": "cls && tsc",
-    "req": "pip3 install pipreqs && pipreqs ./Include/Python/katalon",
+    "req": "pip3 install pipreqs && pipreqs ./tests/Python/katalon",
     "build": "webpack --config config/webpack/webpack.prod.js --progress",
     "watch": "cls && webpack serve --config config/webpack/webpack.dev.js --progress"
   },
@@ -39,5 +39,5 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
   },
-  "types": "./Include/Javascript/katalon/index.d.ts"
+  "types": "./tests/katalon/index.d.ts"
 }

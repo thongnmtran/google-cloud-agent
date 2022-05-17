@@ -2,7 +2,7 @@
 const {
   WebUI, findTestObject, KatalonDriver,
   cloneClass, importClass
-} = require('../../katalon');
+} = require('../katalon');
 
 const RunConfiguration = importClass('com.kms.katalon.core.configuration.RunConfiguration');
 

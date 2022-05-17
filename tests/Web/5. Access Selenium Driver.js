@@ -1,10 +1,10 @@
 const { WebDriver, By } = require('selenium-webdriver');
 const { Executor, HttpClient } = require('selenium-webdriver/http');
-const WebDriverResolver = require('../../katalon/middlewares/WebDriverResolver');
+const WebDriverResolver = require('../katalon/middlewares/WebDriverResolver');
 
 const {
   Katalon, WebUI, findTestObject, importClass, DriverFactory
-} = require('../../katalon');
+} = require('../katalon');
 
 // const DriverFactory = importClass('com.kms.katalon.core.webui.driver.DriverFactory');
 // const WebDriver = importClass('org.openqa.selenium.WebDriver');

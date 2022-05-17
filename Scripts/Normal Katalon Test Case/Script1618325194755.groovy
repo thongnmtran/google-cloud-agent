@@ -31,6 +31,8 @@ input = findTestObject('Object Repository/Hello/Page_Google/input__q')
 WebUI.verifyElementPresent(input, 5, FailureHandling.STOP_ON_FAILURE)
 
 WebUI.setText(input, 'Hello!')
+
+//WebUI.click(null)
 WebUI.setText(input, 'My name is')
 WebUI.setText(input, 'Katalon!')
 

@@ -1,6 +1,6 @@
 const {
   SessionManager
-} = require('../../katalon');
+} = require('../katalon');
 
 
 const sessionManager = new SessionManager();

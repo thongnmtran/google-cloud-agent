@@ -1,43 +1,22 @@
-const StackTrace = require('stacktrace-js');
 const {
-  Katalon, WebUI, findTestObject, FailureHandling
-} = require('../../katalon');
+  Katalon, WebUI, findTestObject, FailureHandling, KeywordLogger, KatalonSession
+} = require('../katalon');
 
-Katalon.connect(4444);
 
-function doSomething() {
-  const frames = StackTrace.getSync();
-  console.log('doSomething frames', frames);
-}
-
-class CustomKeyword {
-  static callMe() {
-    const frames = StackTrace.getSync();
-    console.log('callMe frames', frames);
-    this.callMeToo();
-  }
-
-  static callMeToo() {
-    const frames = StackTrace.getSync();
-    console.log('callMeToo frames', frames);
-    doSomething();
-  }
-}
+const newSession = new KatalonSession();
+// newSession.connect('ws://localhost:3000')
+newSession.connect('wss://katalon-tunnel.herokuapp.com')
+  .then((session) => {
+    KeywordLogger.instance.session = session;
+    Katalon.connect(4444);
+  });
 
 Katalon.onReady(async (driver) => {
-  console.log('\r\n--- Execute My "Call Stack" Test! ---\r\n'.yellow);
+  console.log('\r\n--- Execute My First "Hello World" Test! ---\r\n'.yellow);
 
-  const startTestCase = Date.now();
   await WebUI.openBrowser('');
 
   await WebUI.navigateToUrl('https://www.google.com/?gws_rd=ssl');
-
-  await WebUI.delay(1);
-
-  const frames = StackTrace.getSync();
-  console.log('Top frames', frames);
-
-  CustomKeyword.callMe();
 
   const input = await findTestObject('Object Repository/Hello/Page_Google/input__q');
 
@@ -59,9 +38,9 @@ Katalon.onReady(async (driver) => {
 
   await WebUI.closeBrowser();
 
-  console.log(`\r\nTest case duration: ${Date.now() - startTestCase}ms\r\n`.green);
+  console.log('\r\n--- Done Executing My "Hello World" Test! ---\r\n'.yellow);
 
-  console.log('--- Done Executing My "Call Stack" Test! ---\r\n'.yellow);
+  newSession.disconnect();
 
   Katalon.close();
 });

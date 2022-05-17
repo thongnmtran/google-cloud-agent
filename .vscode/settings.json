@@ -15,6 +15,7 @@
   "[Log]": {
     "editor.wordWrap": "on"
   },
+  // "window.zoomLevel": 1.2,
   "files.exclude": {
     ".build": false,
     ".profile-oss": true,
@@ -23,7 +24,6 @@
       "when": "$(basename).ts"
     },
     "bin": true,
-    "build": false,
     "Drivers": true,
     "Libs": true,
     "Plugins": true,
@@ -32,17 +32,25 @@
     ".cache": true,
     ".classpath": true,
     "*.prj": true,
-    "*.project": true,
-    // "Scripts": true,
-    // "node_modules": true,
-    // "config": true,
-    // ".eslintrc*": true,
-    // "tsconfig*": true,
+    "**/*.project": true,
     ".gitignore": true,
     ".pylintrc": true,
     "package-lock.json": true,
     "build.gradle": true,
     "console.properties": true,
+    // "**/.eslintrc*": true,
+    // "**/tsconfig*": true,
     // ".vscode": true,
+    // "config": true,
+    "build": true,
+    "node_modules": true,
+    "Scripts": true,
+    "Checkpoints": true,
+    "Data Files": true,
+    "Test Listeners": true,
+    "Include": true,
+    "Profiles": true,
+    "Reports": true,
+    "Keywords": true,
   }
 }
