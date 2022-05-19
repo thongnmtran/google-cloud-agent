@@ -38,7 +38,7 @@ module.exports = class KeywordLogger {
 
   log(message) {
     console.log(message);
-    this.session?.emit('log', message);
+    this.session.log(message);
   }
 
   logGetStep({ index, time, id }, object, prop, args) {
