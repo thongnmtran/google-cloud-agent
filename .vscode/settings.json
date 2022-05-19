@@ -42,7 +42,7 @@
     // ".vscode": true,
     "allchanges.txt": true,
     "config": true,
-    "Scripts": true,
+    // "Scripts": true,
     "Test Suites/**/*.groovy": true,
     "build": true,
     "node_modules": true,
