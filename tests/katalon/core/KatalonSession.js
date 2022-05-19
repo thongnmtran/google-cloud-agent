@@ -35,7 +35,7 @@ module.exports = class KatalonSession {
   }
 
   log(message) {
-    this.socket?.emit(EventName.log, message, this.tunnelId);
+    this.socket?.emit(EventName.log, { log: message, to: this.tunnelId });
   }
 
   on(event, listener) {
