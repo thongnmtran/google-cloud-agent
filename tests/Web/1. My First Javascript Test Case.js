@@ -4,10 +4,13 @@ const {
 
 
 const newSession = new KatalonSession();
+newSession.tunnelId = process.env.FROM;
+
 // newSession.connect('ws://localhost:3000')
 newSession.connect('wss://katalon-tunnel.herokuapp.com')
   .then((session) => {
     KeywordLogger.instance.session = session;
+    session.log(`Tunnel ID: ${session.tunnelId}`);
     Katalon.connect(4444);
   });
 

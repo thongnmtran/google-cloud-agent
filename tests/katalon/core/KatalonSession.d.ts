@@ -1,4 +1,6 @@
 declare class KatalonSession {
+  tunnelId: string;
+
   connect(url: string): Promise<KatalonSession>;
 
   disconnect(): void;

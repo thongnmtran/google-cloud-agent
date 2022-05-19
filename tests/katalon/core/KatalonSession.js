@@ -5,6 +5,8 @@ const EventName = require('../utils/EventName');
 // const P2P = require('socket.io-p2p');
 
 module.exports = class KatalonSession {
+  tunnelId;
+
   connect(url, options = {}) {
     return new Promise((resolve, reject) => {
       this.socket = io(url, {
@@ -33,7 +35,7 @@ module.exports = class KatalonSession {
   }
 
   log(message) {
-    this.socket?.emit(EventName.log, message);
+    this.socket?.emit(EventName.log, message, this.tunnelId);
   }
 
   on(event, listener) {

@@ -24,10 +24,10 @@ module.exports = class SessionManager {
   }
 
   listen() {
-    this.firstSession.on(EventName.run, (path) => {
+    this.firstSession.on(EventName.run, (from, path) => {
       const fullPath = resolve(path);
       const nodeFullPath = resolve('./Drivers/node');
-      childprocess.exec(`"${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
+      childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
         // this.firstSession.log(stdout);
         // this.firstSession.log(stderr);
         if (error !== null) {
