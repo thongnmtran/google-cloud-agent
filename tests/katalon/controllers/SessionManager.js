@@ -1,6 +1,7 @@
 const childprocess = require('child_process');
 const { resolve } = require('path');
 const KatalonSession = require('../core/KatalonSession');
+const EventName = require('../utils/EventName');
 
 module.exports = class SessionManager {
   sessions = [];
@@ -23,7 +24,7 @@ module.exports = class SessionManager {
   }
 
   listen() {
-    this.firstSession.on('run', (path) => {
+    this.firstSession.on(EventName.run, (path) => {
       const fullPath = resolve(path);
       const nodeFullPath = resolve('./Drivers/node');
       childprocess.exec(`"${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
@@ -34,15 +35,12 @@ module.exports = class SessionManager {
         }
       });
     });
-    this.firstSession.on('stop', (path) => {
+    this.firstSession.on(EventName.stop, () => {
       this.firstSession.disconnect();
       process.exit(0);
     });
-    this.firstSession.on('sessions', (sessions) => {
-      console.log('> Online sessions: ', sessions);
-    });
-    this.firstSession.on('connect', () => {
-      this.firstSession.emit('register-agent');
+    this.firstSession.on(EventName.connect, () => {
+      this.firstSession.emit(EventName.registerInstance);
     });
   }
 };
