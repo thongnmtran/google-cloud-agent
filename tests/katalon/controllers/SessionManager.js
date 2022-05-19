@@ -27,6 +27,7 @@ module.exports = class SessionManager {
     this.firstSession.on(EventName.run, (from, path) => {
       const fullPath = resolve(path);
       const nodeFullPath = resolve('./Drivers/node');
+      this.firstSession.log(`Run script: "${fullPath}"`);
       childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
         // this.firstSession.log(stdout);
         // this.firstSession.log(stderr);
