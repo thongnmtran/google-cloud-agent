@@ -1,8 +1,18 @@
 const {
-  Katalon, WebUI, findTestObject, FailureHandling
-} = require('../../katalon');
+  Katalon, WebUI, findTestObject, FailureHandling, KeywordLogger, KatalonSession
+} = require('../katalon');
 
-Katalon.connect(4444);
+
+const newSession = new KatalonSession();
+newSession.tunnelId = process.env.FROM;
+
+// newSession.connect('ws://localhost:3000')
+newSession.connect('wss://katalon-tunnel.herokuapp.com')
+  .then((session) => {
+    KeywordLogger.instance.session = session;
+    session.log(`Tunnel ID: ${session.tunnelId}`);
+    Katalon.connect(4444);
+  });
 
 Katalon.onReady(async (driver) => {
   console.log('\r\n--- Execute My First "Hello World" Test! ---\r\n'.yellow);
@@ -32,6 +42,8 @@ Katalon.onReady(async (driver) => {
   await WebUI.closeBrowser();
 
   console.log('\r\n--- Done Executing My "Hello World" Test! ---\r\n'.yellow);
+
+  newSession.disconnect();
 
   Katalon.close();
 });

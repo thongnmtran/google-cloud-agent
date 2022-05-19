@@ -7,7 +7,8 @@ module.exports = {
   mode: 'production',
   entry: {
     katalon: './tests/katalon/index.js',
-    firstTest: './tests/Web/1. My First Javascript Test Case.js',
+    'My First Javascript Test Case': './tests/Web/1. My First Javascript Test Case.js',
+    'Import Java Types and Classes': './tests/Web/2. Import Java Types and Classes.js',
     sessionManager: './tests/Web/0. Session Manager.js',
   },
   output: {
