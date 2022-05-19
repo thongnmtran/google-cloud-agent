@@ -28,8 +28,8 @@ module.exports = class SessionManager {
       const fullPath = resolve(path);
       const nodeFullPath = resolve('./Drivers/node');
       childprocess.exec(`"${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
-        this.firstSession.log(stdout);
-        this.firstSession.log(stderr);
+        // this.firstSession.log(stdout);
+        // this.firstSession.log(stderr);
         if (error !== null) {
           this.firstSession.log(error);
         }
