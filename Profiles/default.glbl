@@ -9,4 +9,9 @@
       <initValue>'Katalon!zzz'</initValue>
       <name>yourName</name>
    </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>false</initValue>
+      <name>isLocal</name>
+   </GlobalVariableEntity>
 </GlobalVariableEntities>
