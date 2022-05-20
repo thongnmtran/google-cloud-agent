@@ -7,6 +7,10 @@ const EventName = require('../utils/EventName');
 module.exports = class KatalonSession {
   tunnelId;
 
+  get connected() {
+    return this.socket.connected;
+  }
+
   connect(url, options = {}) {
     return new Promise((resolve, reject) => {
       this.socket = io(url, {
@@ -34,8 +38,8 @@ module.exports = class KatalonSession {
     return this.socket.disconnect();
   }
 
-  log(message) {
-    this.socket?.emit(EventName.log, { log: message, to: this.tunnelId });
+  log(message, to = this.tunnelId) {
+    this.socket?.emit(EventName.log, { log: message, to });
   }
 
   on(event, listener) {

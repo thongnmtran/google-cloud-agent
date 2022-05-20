@@ -17,6 +17,8 @@ newSession.connect('wss://katalon-tunnel.herokuapp.com')
 Katalon.onReady(async (driver) => {
   console.log('\r\n--- Execute My First "Hello World" Test! ---\r\n'.yellow);
 
+  WebUI.comment('Hello! This is my first test! /=)');
+
   await WebUI.openBrowser('');
 
   await WebUI.navigateToUrl('https://www.google.com/?gws_rd=ssl');
@@ -24,6 +26,8 @@ Katalon.onReady(async (driver) => {
   const input = await findTestObject('Object Repository/Hello/Page_Google/input__q');
 
   await WebUI.verifyElementPresent(input, 5, FailureHandling.STOP_ON_FAILURE);
+
+  WebUI.setText(input, 'Katalon Runner!');
 
   await Promise.all(
     ['Hello!', 'My name is', 'Katalon!'].map(

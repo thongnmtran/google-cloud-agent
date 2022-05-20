@@ -5,50 +5,50 @@ const KatalonSession = require('../core/KatalonSession');
 const EventName = require('../utils/EventName');
 
 module.exports = class SessionManager {
-  sessions = [];
+  session = new KatalonSession();
 
-  get firstSession() {
-    return this.sessions[0];
+  get connected() {
+    return this.session.connected;
   }
 
   async start(url) {
+    if (this.connected) {
+      return this.session;
+    }
     const newSessionPromise = this.connect(url);
     this.listen();
     return newSessionPromise;
   }
 
   async connect(url, options = {}) {
-    const newSession = new KatalonSession();
-    const connectPromise = newSession.connect(url, options);
-    this.sessions.push(newSession);
-    return connectPromise;
+    return this.session.connect(url, options);
   }
 
   listen() {
-    this.firstSession.on(EventName.run, (from, path) => {
+    this.session.on(EventName.run, (from, path) => {
       const fullPath = resolve(path);
       const nodeFullPath = resolve('./Drivers/node');
 
-      this.firstSession.log(`Run script: "${fullPath}"`);
+      this.session.log(`Run script: "${fullPath}"`, from);
       if (!existsSync(nodeFullPath)) {
-        this.firstSession.log(`> File not found: "${fullPath}"`);
+        this.session.log(`> File not found: "${fullPath}"`, from);
         return;
       }
 
       childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
-        // this.firstSession.log(stdout);
-        // this.firstSession.log(stderr);
+        // this.session.log(stdout);
+        // this.session.log(stderr);
         if (error !== null) {
-          this.firstSession.log(error);
+          this.session.log(error, from);
         }
       });
     });
-    this.firstSession.on(EventName.stop, () => {
-      this.firstSession.disconnect();
+    this.session.on(EventName.stop, () => {
+      this.session.disconnect();
       process.exit(0);
     });
-    this.firstSession.on(EventName.connect, () => {
-      this.firstSession.emit(EventName.registerInstance);
+    this.session.on(EventName.connect, () => {
+      this.session.emit(EventName.registerInstance);
     });
   }
 };

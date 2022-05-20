@@ -1,11 +1,13 @@
 declare class KatalonSession {
   tunnelId: string;
 
+  connected: boolean;
+
   connect(url: string): Promise<KatalonSession>;
 
   disconnect(): void;
 
-  log(message: string): void;
+  log(message: string, to?: string): void;
 
   on<Ev extends ReservedOrUserEventNames<ReservedEvents, ListenEvents>>(
       ev: Ev,
