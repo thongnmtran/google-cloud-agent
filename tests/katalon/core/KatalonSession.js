@@ -8,7 +8,7 @@ module.exports = class KatalonSession {
   tunnelId;
 
   get connected() {
-    return this.socket.connected;
+    return this.socket?.connected;
   }
 
   connect(url, options = {}) {
