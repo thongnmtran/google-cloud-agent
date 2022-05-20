@@ -1,6 +1,6 @@
 const {
   Katalon, WebUI, findTestObject, FailureHandling, KeywordLogger, KatalonSession
-} = require('../katalon');
+} = require('../../tests/katalon');
 
 
 const newSession = new KatalonSession();
@@ -17,7 +17,7 @@ newSession.connect('wss://katalon-tunnel.herokuapp.com')
 Katalon.onReady(async (driver) => {
   console.log('\r\n--- Execute My First "Hello World" Test! ---\r\n'.yellow);
 
-  WebUI.comment('Hello! This is my first test! /=)');
+  await WebUI.comment('Hello! This is my first test! /=)');
 
   await WebUI.openBrowser('');
 

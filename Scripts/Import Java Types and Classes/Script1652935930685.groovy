@@ -4,7 +4,7 @@ const path = require('path');
 const {
   Katalon, WebUI, /* findTestObject,  *//* FailureHandling, */
   importClass, importEnum, importMethod, KatalonSession, KeywordLogger
-} = require('../katalon');
+} = require('../../tests/katalon');
 
 const scriptName = path.basename(__filename);
 

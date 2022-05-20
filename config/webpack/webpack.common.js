@@ -6,9 +6,9 @@ module.exports = {
   target: 'node',
   mode: 'production',
   entry: {
-    katalon: './tests/katalon/index.js',
-    'My First Javascript Test Case': './tests/Web/1. My First Javascript Test Case.js',
-    'Import Java Types and Classes': './tests/Web/2. Import Java Types and Classes.js',
+    // katalon: './tests/katalon/index.js',
+    'My First Javascript Test Case': './Scripts/My First Javascript Test Case/Script1652936119726.groovy',
+    'Import Java Types and Classes': './Scripts/Import Java Types and Classes/Script1652935930685.groovy',
     sessionManager: './tests/Web/0. Session Manager.js',
   },
   output: {
@@ -20,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
+        test: /\.(js|jsx|ts|tsx|groovy)$/,
         use: [
           {
             loader: 'babel-loader',
