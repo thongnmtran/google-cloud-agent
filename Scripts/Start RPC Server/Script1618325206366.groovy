@@ -37,14 +37,14 @@ def isLocal = GlobalVariable.isLocal;
 if (isLocal) {
 	server.listen(true) // server.listen(forever)
 } else {
-	//File jsFile = new File("build/firstTest.js");
+	// File jsFile = new File("build/firstTest.js");
 	File jsFile = new File("build/sessionManager.js");
 	
 	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
-	// def nodeJsPath = new File("Drivers/node").getCanonicalPath();
+//	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
 	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync()
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
-		.path(new File("Drivers").getCanonicalPath())
+		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
 		.execSync();
 	println StringUtils.join(output, "\r\n")
 	server.stop()

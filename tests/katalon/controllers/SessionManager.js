@@ -42,6 +42,7 @@ module.exports = class SessionManager {
   async startDevServer() {
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
     return new Promise((resolvez, reject) => {
+      childprocess.execSync(`chmod +x "${npmFullPath}"`);
       const watchProcess = childprocess.exec(`"${npmFullPath}" run watch`, (error, stdout, stderr) => {
         if (error) {
           reject(error);
