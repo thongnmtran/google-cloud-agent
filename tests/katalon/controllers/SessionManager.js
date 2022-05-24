@@ -34,7 +34,7 @@ module.exports = class SessionManager {
     const newSession = this.connect(url);
     this.listen();
     this.startDevServer().catch((error) => {
-      this.session.log('> Unable to start dev server');
+      this.session.log('[Warn]> Unable to start dev server');
       this.session.log(error.message);
     });
     return newSession;
@@ -48,6 +48,8 @@ module.exports = class SessionManager {
   async startDevServer() {
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
     childprocess.execSync(`chmod +x "${npmFullPath}"`);
+
+    childprocess.execSync(`"${npmFullPath}" install -g lib.cli`);
 
     this.session.log('> npm install...');
     await CProcess.exec({
