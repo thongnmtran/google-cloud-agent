@@ -49,9 +49,6 @@ module.exports = class SessionManager {
     const npmFullPath = resolve('./Drivers/linux/lib/node_modules/npm/bin/npm');
     childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
-    // childprocess.execSync(`"${npmFullPath}" install -g lib.cli`);
-    rmSync('./Drivers/linux/lib/node_modules', { recursive: true, force: true });
-
     this.session.log('> npm install...');
     await CProcess.exec({
       command: `"${npmFullPath}" install`,
