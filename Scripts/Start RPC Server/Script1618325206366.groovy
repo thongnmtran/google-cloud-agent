@@ -44,7 +44,7 @@ if (isLocal) {
 //	def nodeJsPath = new File("Drivers/win/node").getCanonicalPath();
 	println "NodeJS path: ${nodeJsPath}";
 	
-//	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
+	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
 
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
 		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
