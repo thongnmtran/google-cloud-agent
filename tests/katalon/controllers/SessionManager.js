@@ -30,10 +30,10 @@ module.exports = class SessionManager {
     if (this.connected) {
       return this.session;
     }
-    const newSessionPromise = this.connect(url);
+    const newSession = await this.connect(url);
     this.listen();
     this.startDevServer();
-    return newSessionPromise;
+    return newSession;
   }
 
   async connect(url, options = {}) {
@@ -45,11 +45,19 @@ module.exports = class SessionManager {
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
     return new Promise((resolvez, reject) => {
       childprocess.execSync(`chmod +x "${npmFullPath}"`);
+
+      this.session.log('> npm install...');
+      const installLog = childprocess.execSync(`"${npmFullPath}" install`);
+      this.session.log(installLog);
+
+      this.session.log('> npm run watch...');
       const watchProcess = childprocess.exec(`"${npmFullPath}" run watch`, (error, stdout, stderr) => {
         if (error) {
           reject(error);
+          this.session.log(`> Watch error: ${stdout}`);
         } else {
           resolvez(stdout);
+          this.session.log(`> Watch log: ${stdout}`);
         }
       });
       this.addProcess(watchProcess);
