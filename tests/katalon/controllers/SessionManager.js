@@ -33,10 +33,10 @@ module.exports = class SessionManager {
     }
     const newSession = this.connect(url);
     this.listen();
-    this.startDevServer().catch((error) => {
-      this.session.log('[Warn]> Unable to start dev server');
-      this.session.log(error.message);
-    });
+    // this.startDevServer().catch((error) => {
+    //   this.session.log('[Warn]> Unable to start dev server');
+    //   this.session.log(error.message);
+    // });
     return newSession;
   }
 
@@ -46,12 +46,22 @@ module.exports = class SessionManager {
 
   // eslint-disable-next-line class-methods-use-this
   async startDevServer() {
-    const npmFullPath = resolve('./Drivers/linux/lib/node_modules/npm/bin/npm');
+    const nodeHome = resolve('./Drivers/linux');
+    const npmFullPath = resolve('./Drivers/linux/bin/npm');
     childprocess.execSync(`chmod +x "${npmFullPath}"`);
+
+    // const paths = [
+    //   'bin', 'include', 'lib', 'share'
+    // ];
+    // const pathsz = paths.map((pathI) => resolve(`./Drivers/linux/${pathI}`));
+    // const env = {
+    //   ...process.env,
+    //   PATH: `${process.env.PATH}:${pathsz.join(':')}`
+    // };
 
     this.session.log('> npm install...');
     await CProcess.exec({
-      command: `"${npmFullPath}" install`,
+      command: `export NODE_HOME="${nodeHome}"; export PATH=$PATH:$NODE_HOME/bin; npm install`,
       onMessage: (log) => {
         this.session.log(`> Install log ${log?.length}`);
         this.session.log(log);
@@ -64,7 +74,7 @@ module.exports = class SessionManager {
 
     this.session.log('> npm run watch...');
     await CProcess.exec({
-      command: `"${npmFullPath}" run watch`,
+      command: 'npm run watch',
       onMessage: (log) => {
         this.session.log(`> Watch log ${log?.length}`);
         this.session.log(log);

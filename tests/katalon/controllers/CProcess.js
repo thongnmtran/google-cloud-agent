@@ -18,7 +18,9 @@ module.exports = class CProcess {
     }, []);
   }
 
-  static async exec({ command, onMessage, onError }) {
+  static async exec({
+    command, onMessage, onError,
+  }) {
     return new Promise((resolve, reject) => {
       const child = exec(command, { cwd: path.resolve('.') });
       child.stdout.setEncoding('utf8');
