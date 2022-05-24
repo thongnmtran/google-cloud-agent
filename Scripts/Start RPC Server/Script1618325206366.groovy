@@ -32,7 +32,7 @@ println "Current working dir: ${curWorkingDir}"
 
 def server = KatalonRPCServer.create(4444);
 
-def isLocal = !GlobalVariable.isLocal;
+def isLocal = GlobalVariable.isLocal;
 
 if (isLocal) {
 	server.listen(true) // server.listen(forever)
