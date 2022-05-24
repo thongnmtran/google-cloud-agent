@@ -50,8 +50,19 @@ module.exports = class SessionManager {
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
     // childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
-    const installNewNode = 'echo \'export PATH=$HOME/local/bin:$PATH\' >> ~/.bashrc; . ~/.bashrc; mkdir ~/local; mkdir ~/node-latest-install; cd ~/node-latest-install; wget -c http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1; ./configure --prefix=~/local; make install; wget -c https://www.npmjs.org/install.sh | sh';
-    childprocess.execSync(`${installNewNode}`);
+    this.session.log('> Install NodeJS...');
+    const installNewNode = 'echo \'export PATH=$HOME/local/bin:$PATH\' >> ~/.bashrc && . ~/.bashrc && mkdir ~/local && mkdir ~/node-latest-install && cd ~/node-latest-install && wget -c http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1 && ./configure --prefix=~/local && make install && wget -c https://www.npmjs.org/install.sh | sh';
+    await CProcess.exec({
+      command: installNewNode,
+      onMessage: (log) => {
+        this.session.log(`> Install log ${log?.length}`);
+        this.session.log(log);
+      },
+      onError: (errorLog) => {
+        this.session.log('> Install error');
+        this.session.log(errorLog);
+      }
+    });
 
     this.session.log('> npm install...');
     await CProcess.exec({
