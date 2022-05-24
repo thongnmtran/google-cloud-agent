@@ -7,6 +7,19 @@ const EventName = require('../utils/EventName');
 module.exports = class SessionManager {
   session = new KatalonSession();
 
+  processes = [];
+
+  addProcess(newProcess) {
+    this.processes.push(newProcess);
+  }
+
+  removeProcess(process) {
+    const index = this.processes.indexOf(process);
+    if (index >= 0) {
+      this.processes.splice(index, 1);
+    }
+  }
+
   get connected() {
     return this.session.connected;
   }
@@ -24,11 +37,26 @@ module.exports = class SessionManager {
     return this.session.connect(url, options);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async startDevServer() {
+    const npmFullPath = resolve('./Drivers/linux/bin/npm');
+    return new Promise((resolvez, reject) => {
+      const watchProcess = childprocess.exec(`"${npmFullPath}" run watch`, (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolvez(stdout);
+        }
+      });
+      this.addProcess(watchProcess);
+    });
+  }
+
   listen() {
     this.session.on(EventName.run, (from, path, allChanges) => {
       try {
         const fullPath = resolve(path);
-        const nodeFullPath = resolve('./Drivers/node');
+        const nodeFullPath = resolve('./Drivers/linux/bin/node');
 
         if (allChanges?.length) {
           this.session.log(`> Applying changes (${allChanges?.length})`, from);
@@ -43,19 +71,21 @@ module.exports = class SessionManager {
           return;
         }
 
-        childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
+        const childProcess = childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
           // this.session.log(stdout);
           // this.session.log(stderr);
           if (error !== null) {
             this.session.log(error, from);
           }
         });
+        this.addProcess(childProcess);
       } catch (error) {
         this.session.log(`> Error: "${error.message}"`, from);
       }
     });
     this.session.on(EventName.stop, () => {
       this.session.disconnect();
+      this.processes.forEach((processI) => processI.kill('SIGINT'));
       process.exit(0);
     });
     this.session.on(EventName.connect, () => {
