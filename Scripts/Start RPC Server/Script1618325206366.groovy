@@ -32,7 +32,7 @@ println "Current working dir: ${curWorkingDir}"
 
 def server = KatalonRPCServer.create(4444);
 
-def isLocal = GlobalVariable.isLocal;
+def isLocal = !GlobalVariable.isLocal;
 
 if (isLocal) {
 	server.listen(true) // server.listen(forever)
@@ -40,14 +40,15 @@ if (isLocal) {
 	// File jsFile = new File("build/firstTest.js");
 	File jsFile = new File("build/sessionManager.js");
 	
-	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
-//	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
+//	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
+	def nodeJsPath = new File("Drivers/win/node").getCanonicalPath();
 	println "NodeJS path: ${nodeJsPath}";
 	
-	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
+//	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
 
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
 		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
+		.workingDir(new File(".").getCanonicalPath())
 		.redirectError()
 		.execSync();
 		

@@ -46,16 +46,18 @@ module.exports = class SessionManager {
 
   // eslint-disable-next-line class-methods-use-this
   async startDevServer() {
-    const npmFullPath = resolve('./Drivers/linux/bin/npm');
-    childprocess.execSync(`chmod +x "${npmFullPath}"`);
+    const npmFullPath = resolve('./Drivers/win/npm');
+    // childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
     this.session.log('> npm install...');
     await CProcess.exec({
       command: `"${npmFullPath}" install`,
       onMessage: (log) => {
+        this.session.log(`> Install log ${log?.length}`);
         this.session.log(log);
       },
       onError: (errorLog) => {
+        this.session.log('> Install error');
         this.session.log(errorLog);
       }
     });
@@ -64,9 +66,11 @@ module.exports = class SessionManager {
     await CProcess.exec({
       command: `"${npmFullPath}" run watch`,
       onMessage: (log) => {
+        this.session.log(`> Watch log ${log?.length}`);
         this.session.log(log);
       },
       onError: (errorLog) => {
+        this.session.log('> Watch error');
         this.session.log(errorLog);
       }
     });
@@ -76,11 +80,11 @@ module.exports = class SessionManager {
     this.session.on(EventName.run, (from, path, allChanges) => {
       try {
         const fullPath = resolve(path);
-        const nodeFullPath = resolve('./Drivers/linux/bin/node');
-        childprocess.execSync(`chmod +x "${nodeFullPath}"`);
+        const nodeFullPath = resolve('./Drivers/win/node');
+        // childprocess.execSync(`chmod +x "${nodeFullPath}"`);
 
         if (allChanges?.length) {
-          this.session.log(`> Applying changes (${allChanges?.length})`, from);
+          this.session.log(`> Apply changes (${allChanges?.length})`, from);
           const patchFile = 'patch.diff';
           try {
             writeFileSync(patchFile, allChanges);
