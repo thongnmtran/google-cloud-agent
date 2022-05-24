@@ -30,6 +30,7 @@ module.exports = class SessionManager {
     }
     const newSessionPromise = this.connect(url);
     this.listen();
+    this.startDevServer();
     return newSessionPromise;
   }
 
