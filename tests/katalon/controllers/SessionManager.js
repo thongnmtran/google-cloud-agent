@@ -46,7 +46,7 @@ module.exports = class SessionManager {
 
   // eslint-disable-next-line class-methods-use-this
   async startDevServer() {
-    const npmFullPath = resolve('./Drivers/linux/bin/npm');
+    const npmFullPath = resolve('./Drivers/linux/lib/node_modules/npm/bin/npm');
     childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
     // childprocess.execSync(`"${npmFullPath}" install -g lib.cli`);
