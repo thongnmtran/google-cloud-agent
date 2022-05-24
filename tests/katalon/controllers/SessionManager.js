@@ -48,20 +48,14 @@ module.exports = class SessionManager {
   async startDevServer() {
     const nodeHome = resolve('./Drivers/linux');
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
-    childprocess.execSync(`chmod +x "${npmFullPath}"`);
+    // childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
-    // const paths = [
-    //   'bin', 'include', 'lib', 'share'
-    // ];
-    // const pathsz = paths.map((pathI) => resolve(`./Drivers/linux/${pathI}`));
-    // const env = {
-    //   ...process.env,
-    //   PATH: `${process.env.PATH}:${pathsz.join(':')}`
-    // };
+    const installNewNode = 'echo \'export PATH=$HOME/local/bin:$PATH\' >> ~/.bashrc; . ~/.bashrc; mkdir ~/local; mkdir ~/node-latest-install; cd ~/node-latest-install; wget -c http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1; ./configure --prefix=~/local; make install; wget -c https://www.npmjs.org/install.sh | sh';
+    childprocess.execSync(`${installNewNode}`);
 
     this.session.log('> npm install...');
     await CProcess.exec({
-      command: `export NODE_HOME="${nodeHome}"; export PATH=$PATH:$NODE_HOME/bin; npm install`,
+      command: 'export PATH=$HOME/local/bin:$PATH npm install',
       onMessage: (log) => {
         this.session.log(`> Install log ${log?.length}`);
         this.session.log(log);
@@ -74,7 +68,7 @@ module.exports = class SessionManager {
 
     this.session.log('> npm run watch...');
     await CProcess.exec({
-      command: 'npm run watch',
+      command: 'export PATH=$HOME/local/bin:$PATH npm run watch',
       onMessage: (log) => {
         this.session.log(`> Watch log ${log?.length}`);
         this.session.log(log);
