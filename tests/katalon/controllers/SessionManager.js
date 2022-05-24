@@ -5,6 +5,7 @@ const {
 const { resolve } = require('path');
 const KatalonSession = require('../core/KatalonSession');
 const EventName = require('../utils/EventName');
+const CProcess = require('./CProcess');
 
 module.exports = class SessionManager {
   session = new KatalonSession();
@@ -32,7 +33,9 @@ module.exports = class SessionManager {
     }
     const newSession = await this.connect(url);
     this.listen();
-    this.startDevServer();
+    this.startDevServer().catch(() => {
+      this.session.log('> Unable to start dev server');
+    });
     return newSession;
   }
 
@@ -43,24 +46,28 @@ module.exports = class SessionManager {
   // eslint-disable-next-line class-methods-use-this
   async startDevServer() {
     const npmFullPath = resolve('./Drivers/linux/bin/npm');
-    return new Promise((resolvez, reject) => {
-      childprocess.execSync(`chmod +x "${npmFullPath}"`);
+    childprocess.execSync(`chmod +x "${npmFullPath}"`);
 
-      this.session.log('> npm install...');
-      const installLog = childprocess.execSync(`"${npmFullPath}" install`);
-      this.session.log(installLog);
+    this.session.log('> npm install...');
+    await CProcess.exec({
+      command: `"${npmFullPath}" install`,
+      onMessage: (log) => {
+        this.session.log(log);
+      },
+      onError: (errorLog) => {
+        this.session.log(errorLog);
+      }
+    });
 
-      this.session.log('> npm run watch...');
-      const watchProcess = childprocess.exec(`"${npmFullPath}" run watch`, (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-          this.session.log(`> Watch error: ${stdout}`);
-        } else {
-          resolvez(stdout);
-          this.session.log(`> Watch log: ${stdout}`);
-        }
-      });
-      this.addProcess(watchProcess);
+    this.session.log('> npm run watch...');
+    await CProcess.exec({
+      command: `"${npmFullPath}" run watch`,
+      onMessage: (log) => {
+        this.session.log(log);
+      },
+      onError: (errorLog) => {
+        this.session.log(errorLog);
+      }
     });
   }
 

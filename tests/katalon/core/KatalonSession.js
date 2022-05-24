@@ -21,14 +21,14 @@ module.exports = class KatalonSession {
       // this.p2p = new P2P(this.socket, { autoUpgrade: false });
 
       this.socket.on(EventName.connect, () => {
-        console.log(`> Katalon session created 🚀 (${this.socket.id})`);
+        console.log(`> Katalon session created (${this.socket.id})`);
         resolve(this);
       });
       this.socket.on(EventName.disconnect, () => {
         console.warn('> Katalon session diconnected!');
       });
       this.socket.on(EventName.connectError, (error) => {
-        console.log('> Katalon session error 🚀');
+        console.log('> Katalon session error');
         reject(error);
       });
     });
