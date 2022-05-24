@@ -40,8 +40,8 @@ if (isLocal) {
 	// File jsFile = new File("build/firstTest.js");
 	File jsFile = new File("build/sessionManager.js");
 	
-//	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
-	def nodeJsPath = new File("Drivers/win/node").getCanonicalPath();
+	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
+//	def nodeJsPath = new File("Drivers/win/node").getCanonicalPath();
 	println "NodeJS path: ${nodeJsPath}";
 	
 //	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
