@@ -82,12 +82,16 @@ module.exports = class SessionManager {
         if (allChanges?.length) {
           this.session.log(`> Applying changes (${allChanges?.length})`, from);
           const patchFile = 'patch.diff';
-          writeFileSync(patchFile, allChanges);
-          const diff = readFileSync(patchFile);
-          this.session.log(diff, from);
-
-          childprocess.execSync(`git apply ${patchFile}`);
-          rmSync(patchFile, { force: true });
+          try {
+            writeFileSync(patchFile, allChanges);
+            // const diff = readFileSync(patchFile);
+            // this.session.log(diff.toString(), from);
+            childprocess.execSync(`git apply ${patchFile}`);
+          } catch {
+            //
+          } finally {
+            rmSync(patchFile, { force: true });
+          }
         }
 
         this.session.log(`Run script: "${fullPath}"`, from);
