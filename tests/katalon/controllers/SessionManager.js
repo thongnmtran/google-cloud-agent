@@ -31,10 +31,11 @@ module.exports = class SessionManager {
     if (this.connected) {
       return this.session;
     }
-    const newSession = await this.connect(url);
+    const newSession = this.connect(url);
     this.listen();
-    this.startDevServer().catch(() => {
+    this.startDevServer().catch((error) => {
       this.session.log('> Unable to start dev server');
+      this.session.log(error.message);
     });
     return newSession;
   }

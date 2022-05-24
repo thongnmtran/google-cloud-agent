@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 
 module.exports = class CProcess {
-  static exec({ command, onMessage, onError }) {
+  static async exec({ command, onMessage, onError }) {
     return new Promise((resolve, reject) => {
       const child = spawn(command);
       child.stdout.setEncoding('utf8');
