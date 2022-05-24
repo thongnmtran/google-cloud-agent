@@ -1,8 +1,0 @@
-diff --git a/settings/internal/com.kms.katalon.integration.testcloud.properties b/settings/internal/com.kms.katalon.integration.testcloud.properties
-index aeabfb6..adf7b10 100644
---- a/settings/internal/com.kms.katalon.integration.testcloud.properties
-+++ b/settings/internal/com.kms.katalon.integration.testcloud.properties
-@@ -1,3 +1,2 @@
--#Fri May 06 13:35:37 ICT 2022
- testcloud.integration.enable=true
- testcloud.organization="{\\n  \\"id\\"\: 127255,\\n  \\"name\\"\: \\"Organization thong.tran\\",\\n  \\"role\\"\: \\"OWNER\\",\\n  \\"quotaKSE\\"\: 100,\\n  \\"quotaUnlimitedKSE\\"\: 0\\n}"
