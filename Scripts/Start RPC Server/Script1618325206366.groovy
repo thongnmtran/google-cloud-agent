@@ -42,12 +42,17 @@ if (isLocal) {
 	
 	def nodeJsPath = new File("Drivers/linux/bin/node").getCanonicalPath();
 //	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
-	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync()
+	println "NodeJS path: ${nodeJsPath}";
+	
+	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
+
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
 		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
 		.redirectError()
 		.execSync();
+		
 	println StringUtils.join(output, "\r\n")
+	
 	server.stop()
 }
 
