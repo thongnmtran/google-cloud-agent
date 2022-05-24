@@ -33,10 +33,10 @@ module.exports = class SessionManager {
     }
     const newSession = this.connect(url);
     this.listen();
-    // this.startDevServer().catch((error) => {
-    //   this.session.log('[Warn]> Unable to start dev server');
-    //   this.session.log(error.message);
-    // });
+    this.startDevServer().catch((error) => {
+      this.session.log('[Warn]> Unable to start dev server');
+      this.session.log(error.message);
+    });
     return newSession;
   }
 
