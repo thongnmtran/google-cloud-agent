@@ -12,4 +12,3 @@ diff --git a/Scripts/My First Javascript Test Case/Script1652936119726.groovy b/
    await WebUI.openBrowser('');
  
    await WebUI.navigateToUrl('https://www.google.com/?gws_rd=ssl');
-

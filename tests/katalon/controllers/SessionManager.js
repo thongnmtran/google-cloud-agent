@@ -1,5 +1,7 @@
 const childprocess = require('child_process');
-const { existsSync, writeFileSync, rmSync } = require('fs');
+const {
+  existsSync, writeFileSync, rmSync, readFileSync
+} = require('fs');
 const { resolve } = require('path');
 const KatalonSession = require('../core/KatalonSession');
 const EventName = require('../utils/EventName');
@@ -63,9 +65,13 @@ module.exports = class SessionManager {
 
         if (allChanges?.length) {
           this.session.log(`> Applying changes (${allChanges?.length})`, from);
-          writeFileSync('patch.diff', allChanges);
-          childprocess.execSync('git apply patch.diff');
-          rmSync('patch.diff', { force: true });
+          const patchFile = 'patch.diff';
+          writeFileSync(patchFile, allChanges);
+          const diff = readFileSync(patchFile);
+          this.session.log(diff, from);
+
+          childprocess.execSync(`git apply ${patchFile}`);
+          rmSync(patchFile, { force: true });
         }
 
         this.session.log(`Run script: "${fullPath}"`, from);
@@ -75,6 +81,7 @@ module.exports = class SessionManager {
         }
 
         const childProcess = childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
+          this.removeProcess(childProcess);
           // this.session.log(stdout);
           // this.session.log(stderr);
           if (error !== null) {
