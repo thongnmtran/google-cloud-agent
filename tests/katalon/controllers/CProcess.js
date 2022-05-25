@@ -32,14 +32,8 @@ module.exports = class CProcess {
       child.stderr.on('data', (data) => {
         onError(data?.toString());
       });
-
-      child.on('close', (code) => {
-        if (code) {
-          reject(new Error(`> Error code: ${code}`));
-        } else {
-          resolve(code);
-        }
-      });
+      child.once('exit', resolve);
+      child.once('error', reject);
     });
   }
 };
