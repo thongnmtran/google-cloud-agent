@@ -84,7 +84,6 @@ module.exports = class SessionManager {
       try {
         const fullPath = resolve(path);
         const nodeFullPath = resolve('./Drivers/node');
-        childprocess.execSync(`chmod +x "${nodeFullPath}"`);
 
         if (allChanges?.length) {
           const added = allChanges?.match(/^\+[^+]/gm)?.length || 0;
