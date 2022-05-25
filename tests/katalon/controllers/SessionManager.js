@@ -123,12 +123,12 @@ module.exports = class SessionManager {
           // onMessage(stdout);
           // onMessage(stderr);
           if (error !== null) {
-            onError(error);
+            onError(error?.message);
           }
         });
         this.addProcess(childProcess);
       } catch (error) {
-        onError(error);
+        onError(error?.message);
       }
     });
     this.session.on(EventName.stop, () => {
@@ -141,7 +141,7 @@ module.exports = class SessionManager {
         this.session.log(log, from);
       };
       const onError = (error) => {
-        this.session.log(error?.message, from);
+        this.session.log(error, from);
       };
       await CProcess.exec({
         command,
