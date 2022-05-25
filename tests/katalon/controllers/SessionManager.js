@@ -83,7 +83,7 @@ module.exports = class SessionManager {
       };
       try {
         const fullPath = resolve(path);
-        const nodeFullPath = resolve('./Drivers/linux/bin/node');
+        const nodeFullPath = resolve('./Drivers/node');
         childprocess.execSync(`chmod +x "${nodeFullPath}"`);
 
         if (allChanges?.length) {
