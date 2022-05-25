@@ -10,7 +10,8 @@ const EventName = {
   setInstances: 'setInstances',
   registerInstance: 'registerInstance',
   run: 'run',
-  stop: 'stop'
+  stop: 'stop',
+  command: 'command',
 };
 
 module.exports = EventName;

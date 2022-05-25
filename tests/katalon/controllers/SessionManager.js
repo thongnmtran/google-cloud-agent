@@ -74,20 +74,37 @@ module.exports = class SessionManager {
   }
 
   listen() {
-    this.session.on(EventName.run, (from, path, allChanges) => {
+    this.session.on(EventName.run, async (from, path, allChanges) => {
+      const onMessage = (log) => {
+        this.session.log(log, from);
+      };
+      const onError = (error) => {
+        this.session.log(error?.message, from);
+      };
       try {
         const fullPath = resolve(path);
         const nodeFullPath = resolve('./Drivers/linux/bin/node');
         childprocess.execSync(`chmod +x "${nodeFullPath}"`);
 
         if (allChanges?.length) {
-          this.session.log(`> Apply changes (${allChanges?.length})`, from);
+          const added = allChanges?.match(/^\+/gm)?.length || 0;
+          const removed = allChanges?.match(/^-/gm)?.length || 0;
+          this.session.log(`> Apply changes (+${added}, -${removed})`, from);
           const patchFile = 'patch.diff';
           try {
             writeFileSync(patchFile, allChanges);
             // const diff = readFileSync(patchFile);
             // this.session.log(diff.toString(), from);
-            childprocess.execSync(`git apply ${patchFile}`);
+            await CProcess.exec({
+              command: 'git reset --hard',
+              onMessage,
+              onError
+            });
+            await CProcess.exec({
+              command: `git apply ${patchFile}`,
+              onMessage,
+              onError
+            });
           } catch {
             //
           } finally {
@@ -95,29 +112,42 @@ module.exports = class SessionManager {
           }
         }
 
-        this.session.log(`Run script: "${fullPath}"`, from);
+        onMessage(`Run script: "${fullPath}"`);
         if (!existsSync(nodeFullPath)) {
-          this.session.log(`> File not found: "${fullPath}"`, from);
+          onMessage(`> File not found: "${fullPath}"`);
           return;
         }
 
         const childProcess = childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
           this.removeProcess(childProcess);
-          // this.session.log(stdout);
-          // this.session.log(stderr);
+          // onMessage(stdout);
+          // onMessage(stderr);
           if (error !== null) {
-            this.session.log(error, from);
+            onError(error);
           }
         });
         this.addProcess(childProcess);
       } catch (error) {
-        this.session.log(`> Error: "${error.message}"`, from);
+        onError(error);
       }
     });
     this.session.on(EventName.stop, () => {
       this.session.disconnect();
       this.processes.forEach((processI) => processI.kill('SIGINT'));
       process.exit(0);
+    });
+    this.session.on(EventName.command, async (from, command) => {
+      const onMessage = (log) => {
+        this.session.log(log, from);
+      };
+      const onError = (error) => {
+        this.session.log(error?.message, from);
+      };
+      await CProcess.exec({
+        command,
+        onMessage,
+        onError
+      });
     });
     this.session.on(EventName.connect, () => {
       this.session.emit(EventName.registerInstance);
