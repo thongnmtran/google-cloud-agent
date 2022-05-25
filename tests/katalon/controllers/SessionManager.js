@@ -82,10 +82,6 @@ module.exports = class SessionManager {
         this.session.log(error, from);
       };
       try {
-        const fullPath = resolve(path);
-        const nodeFullPath = resolve('./Drivers/linux/bin/node');
-        childprocess.execSync(`chmod +x "${nodeFullPath}"`);
-
         if (allChanges?.length) {
           const added = allChanges?.match(/^\+[^+]/gm)?.length || 0;
           const removed = allChanges?.match(/^-[^-]/gm)?.length || 0;
@@ -111,6 +107,10 @@ module.exports = class SessionManager {
             rmSync(patchFile, { force: true });
           }
         }
+
+        const fullPath = resolve(path);
+        const nodeFullPath = resolve('./Drivers/node');
+        childprocess.execSync(`chmod +x "${nodeFullPath}"`);
 
         onMessage(`Run script: "${fullPath}"`);
         if (!existsSync(nodeFullPath)) {
