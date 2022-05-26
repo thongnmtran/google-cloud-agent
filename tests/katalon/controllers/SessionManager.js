@@ -49,22 +49,22 @@ module.exports = class SessionManager {
     this.session.log('> npm install...');
     await CProcess.exec({
       command: 'npm install',
-      onMessage: (log) => {
-        this.session.log(`> Install log ${log?.length}`);
-        this.session.log(log);
+      onMessage: (log = '') => {
+        const trimmedLog = log?.endsWith('\r\n') ? log.slice(0, -2) : log;
+        this.session.log(trimmedLog);
       },
-      onError: (errorLog) => {
-        this.session.log('> Install error');
-        this.session.log(errorLog);
+      onError: (errorLog = '') => {
+        const trimmedLog = errorLog?.endsWith('\r\n') ? errorLog.slice(0, -2) : errorLog;
+        this.session.log(trimmedLog);
       }
     });
 
     this.session.log('> npm run watch...');
     await CProcess.exec({
       command: 'npm run watch',
-      onMessage: (log) => {
-        this.session.log(`> Watch log ${log?.length}`);
-        this.session.log(log);
+      onMessage: (log = '') => {
+        const trimmedLog = log?.endsWith('\r\n') ? log.slice(0, -2) : log;
+        this.session.log(trimmedLog.split('\r\n').slice(-1)[0]);
       },
       // onError: (errorLog) => {
       //   this.session.log('> Watch error');
