@@ -64,7 +64,7 @@ module.exports = class SessionManager {
       command: 'npm run watch',
       onMessage: (log = '') => {
         const trimmedLog = log?.endsWith('\r\n') ? log.slice(0, -2) : log;
-        this.session.log(trimmedLog.split('\r\n').slice(-1)[0]);
+        this.session.log(trimmedLog?.split('\r\n')?.slice(-1)[0]);
       },
       // onError: (errorLog) => {
       //   this.session.log('> Watch error');
