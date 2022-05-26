@@ -40,10 +40,10 @@ if (isLocal) {
 	// File jsFile = new File("build/firstTest.js");
 	File jsFile = new File("build/sessionManager.js");
 
-	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
-	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
+//	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
+//	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
-		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
+//		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
 		.redirectError()
 		.execSync();
 

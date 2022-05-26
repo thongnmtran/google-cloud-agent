@@ -108,17 +108,18 @@ module.exports = class SessionManager {
           }
         }
 
-        const fullPath = resolve(path);
-        const nodeFullPath = resolve('./Drivers/node');
-        childprocess.execSync(`chmod +x "${nodeFullPath}"`);
+        const scriptPath = resolve(path);
+        // const nodePath = resolve('./Drivers/node');
+        // childprocess.execSync(`chmod +x "${nodeFullPath}"`);
+        const nodePath = 'node';
 
-        onMessage(`Run script: "${fullPath}"`);
-        if (!existsSync(nodeFullPath)) {
-          onMessage(`> File not found: "${fullPath}"`);
+        onMessage(`Run script: "${scriptPath}"`);
+        if (!existsSync(nodePath)) {
+          onMessage(`> File not found: "${scriptPath}"`);
           return;
         }
 
-        const childProcess = childprocess.exec(`export FROM=${from}; "${nodeFullPath}" "${fullPath}"`, (error, stdout, stderr) => {
+        const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
           this.removeProcess(childProcess);
           // onMessage(stdout);
           // onMessage(stderr);
