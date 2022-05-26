@@ -19,6 +19,7 @@ import com.kms.katalon.core.util.ConsoleCommandExecutor
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.webui.util.OSUtil
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable
 
@@ -40,10 +41,7 @@ if (isLocal) {
 	// File jsFile = new File("build/firstTest.js");
 	File jsFile = new File("build/sessionManager.js");
 
-//	def nodeJsPath = new File("Drivers/node").getCanonicalPath();
-//	ConsoleCommandBuilder.create("chmod +x \"${nodeJsPath}\"").execSync();
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
-//		.path(new File(nodeJsPath).getParentFile().getCanonicalPath())
 		.redirectError()
 		.execSync();
 

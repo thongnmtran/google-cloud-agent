@@ -11,7 +11,7 @@
     "doc": "cls && tsc",
     "req": "pip3 install pipreqs && pipreqs ./tests/Python/katalon",
     "build": "webpack --config config/webpack/webpack.prod.js --progress",
-    "watch": "cls && webpack serve --config config/webpack/webpack.dev.js --progress"
+    "watch": "npx webpack serve --config config/webpack/webpack.dev.js --progress"
   },
   "author": "",
   "license": "ISC",

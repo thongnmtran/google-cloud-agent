@@ -1,6 +1,6 @@
 const childprocess = require('child_process');
 const {
-  existsSync, writeFileSync, rmSync, readFileSync
+  existsSync, writeFileSync, rmSync, readFileSync, watchFile, unwatchFile
 } = require('fs');
 const { resolve } = require('path');
 const KatalonSession = require('../core/KatalonSession');
@@ -73,6 +73,10 @@ module.exports = class SessionManager {
     });
   }
 
+  onceRebuild() {
+
+  }
+
   listen() {
     this.session.on(EventName.run, async (from, path, allChanges) => {
       const onMessage = (log) => {
@@ -92,7 +96,7 @@ module.exports = class SessionManager {
             // const diff = readFileSync(patchFile);
             // this.session.log(diff.toString(), from);
             await CProcess.exec({
-              command: 'git reset --hard',
+              command: 'git reset',
               onMessage,
               onError
             });
@@ -109,8 +113,6 @@ module.exports = class SessionManager {
         }
 
         const scriptPath = resolve(path);
-        // const nodePath = resolve('./Drivers/node');
-        // childprocess.execSync(`chmod +x "${nodeFullPath}"`);
         const nodePath = 'node';
 
         onMessage(`Run script: "${scriptPath}"`);
@@ -120,15 +122,19 @@ module.exports = class SessionManager {
         }
 
         // On build successfully -> Run script
-        const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
-          this.removeProcess(childProcess);
-          // onMessage(stdout);
-          // onMessage(stderr);
-          if (error !== null) {
-            onError(error?.message);
-          }
-        });
-        this.addProcess(childProcess);
+        const onBuildDone = () => {
+          unwatchFile(scriptPath, onBuildDone);
+          const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
+            this.removeProcess(childProcess);
+            // onMessage(stdout);
+            // onMessage(stderr);
+            if (error !== null) {
+              onError(error?.message);
+            }
+          });
+          this.addProcess(childProcess);
+        };
+        watchFile(scriptPath, onBuildDone);
       } catch (error) {
         onError(error?.message);
       }
