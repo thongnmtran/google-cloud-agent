@@ -82,7 +82,8 @@ module.exports = class SessionManager {
         this.session.log(error, from);
       };
       try {
-        if (allChanges?.length) {
+        const hasChange = allChanges?.length;
+        if (hasChange) {
           const added = allChanges?.match(/^\+[^+]/gm)?.length || 0;
           const removed = allChanges?.match(/^-[^-]/gm)?.length || 0;
           this.session.log(`> Apply changes (+${added}, -${removed})`, from);
@@ -116,9 +117,7 @@ module.exports = class SessionManager {
           return;
         }
 
-        // On build successfully -> Run script
-        const onBuildDone = () => {
-          unwatchFile(scriptPath, onBuildDone);
+        const runScript = () => {
           const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
             this.removeProcess(childProcess);
             // onMessage(stdout);
@@ -129,7 +128,17 @@ module.exports = class SessionManager {
           });
           this.addProcess(childProcess);
         };
-        watchFile(scriptPath, onBuildDone);
+
+        // On build successfully -> Run script
+        if (hasChange) {
+          const onBuildDone = () => {
+            unwatchFile(scriptPath, onBuildDone);
+            runScript();
+          };
+          watchFile(scriptPath, onBuildDone);
+        } else {
+          runScript();
+        }
       } catch (error) {
         onError(error?.message);
       }
