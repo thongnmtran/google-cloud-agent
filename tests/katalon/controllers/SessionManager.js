@@ -33,10 +33,10 @@ module.exports = class SessionManager {
     }
     const newSession = this.connect(url);
     this.listen();
-    // this.startDevServer().catch((error) => {
-    //   this.session.log('[Warn]> Unable to start dev server');
-    //   this.session.log(error.message);
-    // });
+    this.startDevServer().catch((error) => {
+      this.session.log('[Warn]> Unable to start dev server');
+      this.session.log(error.message);
+    });
     return newSession;
   }
 
@@ -114,11 +114,12 @@ module.exports = class SessionManager {
         const nodePath = 'node';
 
         onMessage(`Run script: "${scriptPath}"`);
-        if (!existsSync(nodePath)) {
+        if (!existsSync(scriptPath)) {
           onMessage(`> File not found: "${scriptPath}"`);
           return;
         }
 
+        // On build successfully -> Run script
         const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
           this.removeProcess(childProcess);
           // onMessage(stdout);
