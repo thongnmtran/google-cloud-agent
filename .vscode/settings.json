@@ -36,7 +36,7 @@
     ".classpath": true,
     "*.prj": true,
     "**/*.project": true,
-    ".gitignore": true,
+    // ".gitignore": true,
     ".pylintrc": true,
     "package-lock.json": true,
     "build.gradle": true,

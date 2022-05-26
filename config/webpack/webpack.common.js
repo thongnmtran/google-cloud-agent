@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const { CleanPlugin } = require('webpack');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 
 module.exports = {
@@ -33,6 +34,18 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanPlugin()
+    new CleanPlugin(),
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          move: [
+            {
+              source: resolve('build/sessionManager.js'),
+              destination: resolve('Drivers/sessionManager.js'),
+            }
+          ]
+        }
+      }
+    })
   ]
 };

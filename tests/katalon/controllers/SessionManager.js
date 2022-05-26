@@ -1,6 +1,6 @@
 const childprocess = require('child_process');
 const {
-  existsSync, writeFileSync, rmSync, readFileSync, watchFile, unwatchFile
+  existsSync, writeFileSync, rmSync, watchFile, unwatchFile
 } = require('fs');
 const { resolve } = require('path');
 const KatalonSession = require('../core/KatalonSession');
@@ -66,15 +66,11 @@ module.exports = class SessionManager {
         this.session.log(`> Watch log ${log?.length}`);
         this.session.log(log);
       },
-      onError: (errorLog) => {
-        this.session.log('> Watch error');
-        this.session.log(errorLog);
-      }
+      // onError: (errorLog) => {
+      //   this.session.log('> Watch error');
+      //   this.session.log(errorLog);
+      // }
     });
-  }
-
-  onceRebuild() {
-
   }
 
   listen() {
@@ -93,10 +89,8 @@ module.exports = class SessionManager {
           const patchFile = 'patch.diff';
           try {
             writeFileSync(patchFile, allChanges);
-            // const diff = readFileSync(patchFile);
-            // this.session.log(diff.toString(), from);
             await CProcess.exec({
-              command: 'git reset',
+              command: 'git restore -s@ -SW  -- build',
               onMessage,
               onError
             });
