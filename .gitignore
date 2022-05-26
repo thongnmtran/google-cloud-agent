@@ -8,7 +8,7 @@ Libs
 output
 
 !output/.gitkeep
-buildz
+/build
 
 .classpath
 

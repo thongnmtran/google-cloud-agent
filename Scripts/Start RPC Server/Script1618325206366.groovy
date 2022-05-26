@@ -39,7 +39,7 @@ if (isLocal) {
 	server.listen(true) // server.listen(forever)
 } else {
 	// File jsFile = new File("build/firstTest.js");
-	File jsFile = new File("build/sessionManager.js");
+	File jsFile = new File("Drivers/sessionManager.js");
 
 	def output = ConsoleCommandBuilder.create("node \"${jsFile.getCanonicalPath()}\"")
 		.redirectError()
