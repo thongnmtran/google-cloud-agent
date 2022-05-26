@@ -38,10 +38,15 @@ module.exports = {
     new FileManagerPlugin({
       events: {
         onEnd: {
-          move: [
+          copy: [
             {
               source: resolve('build/sessionManager.js'),
               destination: resolve('Drivers/sessionManager.js'),
+              options: {
+                flat: false,
+                preserveTimestamps: true,
+                overwite: true,
+              }
             }
           ]
         }

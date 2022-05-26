@@ -90,7 +90,8 @@ module.exports = class SessionManager {
           try {
             writeFileSync(patchFile, allChanges);
             await CProcess.exec({
-              command: 'git restore -s@ -SW  -- build',
+              command: 'git reset --hard',
+              // command: 'git restore -s@ -SW  -- build',
               onMessage,
               onError
             });
