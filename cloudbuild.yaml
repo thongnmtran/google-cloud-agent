@@ -4,7 +4,7 @@ steps:
   # args: ['pull', 'katalonstudio/katalon:8.3.0']
 - name: 'docker'
   entrypoint: 'sh'
-  args: ['-c', 'docker run -t --rm -v /workspace:/tmp/project thongtran44/katalonfull katalonc.sh -projectPath=/tmp/project -browserType="Chrome" -retry=0 -retryStrategy=immediately -testSuitePath="Test Suites/New Test Suite" --config -webui.autoUpdateDrivers=true -apiKey=$$KATALON_API_KEY']
+  args: ['-c', 'export TEST="My\$Character" docker run -t --rm -v /workspace:/tmp/project thongtran44/katalonfull katalonc.sh -projectPath=/tmp/project -browserType="Chrome" -retry=0 -retryStrategy=immediately -testSuitePath="Test Suites/New Test Suite" --config -webui.autoUpdateDrivers=true -apiKey=$$KATALON_API_KEY']
   # args: ['-c', 'docker run -t --rm -v /workspace:/tmp/project katalonstudio/katalon katalonc.sh -projectPath=/tmp/project -browserType="Chrome" -retry=0 -retryStrategy=immediately -testSuitePath="Test Suites/New Test Suite" --config -webui.autoUpdateDrivers=true -apiKey=$$KATALON_API_KEY']
   secretEnv: ['KATALON_API_KEY']
   timeout: 3600s # 1 Hours

@@ -26,7 +26,8 @@ import internal.GlobalVariable
 import org.apache.commons.lang3.StringUtils
 import org.openqa.selenium.Keys as Keys
 
-
+def test = System.getenv("TEST")
+println "Test: ${test}"
 
 def curWorkingDir = System.getProperty("user.dir")
 println "Current working dir: ${curWorkingDir}"
