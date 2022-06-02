@@ -8,14 +8,16 @@ module.exports = class CProcess {
     const child = exec(command, { cwd: path.resolve('.') });
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', (data) => {
-      onMessage(data?.toString());
+      onMessage?.(data?.toString());
     });
 
     child.stderr.setEncoding('utf8');
     child.stderr.on('data', (data) => {
-      onError(data?.toString());
+      onError?.(data?.toString());
     });
-    child.once('exit', onEnd);
+    if (onEnd) {
+      child.once('exit', onEnd);
+    }
     return child;
   }
 
