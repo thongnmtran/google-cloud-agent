@@ -1,8 +1,7 @@
-const childprocess = require('child_process');
 const {
-  existsSync, writeFileSync, rmSync, watchFile, unwatchFile
+  existsSync, writeFileSync, rmSync
 } = require('fs');
-const { resolve } = require('path');
+const path = require('path');
 const KatalonSession = require('../core/KatalonSession');
 const EventName = require('../utils/EventName');
 const CProcess = require('./CProcess');
@@ -64,7 +63,10 @@ module.exports = class SessionManager {
       command: 'npm run watch',
       onMessage: (log = '') => {
         const trimmedLog = log?.endsWith('\r\n') ? log.slice(0, -2) : log;
-        this.session.log(trimmedLog?.split('\r\n')?.slice(-1)[0]);
+        this.session.log(trimmedLog);
+        if (trimmedLog.includes('compiled successfully in')) {
+          this.notifyRebuild();
+        }
       },
       // onError: (errorLog) => {
       //   this.session.log('> Watch error');
@@ -73,8 +75,64 @@ module.exports = class SessionManager {
     });
   }
 
+  async waitForRebuild() {
+    return new Promise((resolve, reject) => {
+      this.resolveRebuild = resolve;
+      this.rejectRebuild = reject;
+    });
+  }
+
+  notifyRebuild(error) {
+    if (error) {
+      this.rejectRebuild?.();
+    } else {
+      this.resolveRebuild?.();
+    }
+  }
+
+  async runScript({
+    from, scriptPath, onMessage, onError
+  }) {
+    const scriptProcess = CProcess.build({
+      command: `export FROM=${from}; node "${scriptPath}"`,
+      onMessage,
+      onError,
+      onEnd: () => {
+        this.removeProcess(scriptProcess);
+      }
+    });
+    this.addProcess(scriptProcess);
+  }
+
+  async applyChange({
+    allChanges, onError, onMessage, from
+  }) {
+    const added = allChanges?.match(/^\+[^+]/gm)?.length || 0;
+    const removed = allChanges?.match(/^-[^-]/gm)?.length || 0;
+    this.session.log(`> Apply changes (+${added}, -${removed})`, from);
+    const patchFile = 'patch.diff';
+    try {
+      writeFileSync(patchFile, allChanges);
+      await CProcess.exec({
+        command: 'git reset --hard',
+        // command: 'git restore -s@ -SW  -- build',
+        onMessage,
+        onError
+      });
+      await CProcess.exec({
+        command: `git apply ${patchFile}`,
+        onMessage,
+        onError
+      });
+    } catch {
+      //
+    } finally {
+      rmSync(patchFile, { force: true });
+    }
+  }
+
   listen() {
-    this.session.on(EventName.run, async (from, path, allChanges) => {
+    this.session.on(EventName.run, async (from, filePath, allChanges) => {
       const onMessage = (log) => {
         this.session.log(log, from);
       };
@@ -84,61 +142,25 @@ module.exports = class SessionManager {
       try {
         const hasChange = allChanges?.length;
         if (hasChange) {
-          const added = allChanges?.match(/^\+[^+]/gm)?.length || 0;
-          const removed = allChanges?.match(/^-[^-]/gm)?.length || 0;
-          this.session.log(`> Apply changes (+${added}, -${removed})`, from);
-          const patchFile = 'patch.diff';
-          try {
-            writeFileSync(patchFile, allChanges);
-            await CProcess.exec({
-              command: 'git reset --hard',
-              // command: 'git restore -s@ -SW  -- build',
-              onMessage,
-              onError
-            });
-            await CProcess.exec({
-              command: `git apply ${patchFile}`,
-              onMessage,
-              onError
-            });
-          } catch {
-            //
-          } finally {
-            rmSync(patchFile, { force: true });
-          }
+          await this.applyChange({
+            allChanges, onError, onMessage, from
+          });
         }
 
-        const scriptPath = resolve(path);
-        const nodePath = 'node';
-
+        const scriptPath = path.resolve(filePath);
         onMessage(`Run script: "${scriptPath}"`);
         if (!existsSync(scriptPath)) {
           onMessage(`> File not found: "${scriptPath}"`);
           return;
         }
 
-        const runScript = () => {
-          const childProcess = childprocess.exec(`export FROM=${from}; "${nodePath}" "${scriptPath}"`, (error, stdout, stderr) => {
-            this.removeProcess(childProcess);
-            // onMessage(stdout);
-            // onMessage(stderr);
-            if (error !== null) {
-              onError(error?.message);
-            }
-          });
-          this.addProcess(childProcess);
-        };
-
         // On build successfully -> Run script
         if (hasChange) {
-          const onBuildDone = () => {
-            unwatchFile(scriptPath, onBuildDone);
-            runScript();
-          };
-          watchFile(scriptPath, onBuildDone);
-        } else {
-          runScript();
+          await this.waitForRebuild();
         }
+        this.runScript({
+          scriptPath, from, onError
+        });
       } catch (error) {
         onError(error?.message);
       }
