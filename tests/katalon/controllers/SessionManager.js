@@ -187,7 +187,7 @@ module.exports = class SessionManager {
           }
         });
       }
-      this.shell.stdin.write(`${command}\r\n`);
+      this.shell.stdin.write(`${command}\n`);
     });
     this.session.on(EventName.connect, () => {
       this.session.emit(EventName.registerInstance);

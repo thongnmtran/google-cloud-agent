@@ -5,7 +5,10 @@ module.exports = class CProcess {
   static build({
     command, onMessage, onError, onEnd
   }) {
-    const child = exec(command, { cwd: path.resolve('.') });
+    const child = exec(command, {
+      cwd: path.resolve('.'),
+      env: process.env
+    });
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', (data) => {
       onMessage?.(data?.toString());
