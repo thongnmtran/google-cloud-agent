@@ -11,6 +11,8 @@ module.exports = class SessionManager {
 
   processes = [];
 
+  shell;
+
   addProcess(newProcess) {
     this.processes.push(newProcess);
   }
@@ -171,17 +173,21 @@ module.exports = class SessionManager {
       process.exit(0);
     });
     this.session.on(EventName.command, async (from, command) => {
-      const onMessage = (log) => {
-        this.session.log(log, from);
-      };
-      const onError = (error) => {
-        this.session.log(error, from);
-      };
-      await CProcess.exec({
-        command,
-        onMessage,
-        onError
-      });
+      if (!this.shell) {
+        this.shell = CProcess.build({
+          command: 'sh',
+          onMessage: (log) => {
+            this.session.log(log, from);
+          },
+          onError: (error) => {
+            this.session.log(error, from);
+          },
+          onEnd: () => {
+            this.shell = null;
+          }
+        });
+      }
+      this.shell.stdin.write(`${command}\r\n`);
     });
     this.session.on(EventName.connect, () => {
       this.session.emit(EventName.registerInstance);
