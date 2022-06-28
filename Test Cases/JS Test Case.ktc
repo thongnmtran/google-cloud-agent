@@ -1,0 +1,16 @@
+WebUI.open("https://katalon-demo-cura.herokuapp.com/")
+
+WebUI.click("id=btn-make-appointment")
+
+WebUI.click("id=txt-username")
+WebUI.click("id=txt-password")
+WebUI.click("id=btn-login")
+
+WebUI.click("css=#login > div.container > div.row > div.col-sm-offset-3.col-sm-6 > form.form-horizontal > div.alert.alert-info > div.form-group > div.col-sm-8 > div.input-group")
+
+WebUI.click("id=txt-username")
+WebUI.click("css=div.col-sm-offset-4.col-sm-8 > div.input-group")
+WebUI.click("id=txt-password")
+WebUI.click("id=btn-login")
+
+WebUI.close()

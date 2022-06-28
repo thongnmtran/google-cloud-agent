@@ -1,0 +1,8 @@
+open	https://katalon-demo-cura.herokuapp.com/
+click	id=btn-make-appointment
+click	id=txt-username
+click	id=txt-password
+click	id=btn-login
+click	id=txt-username
+click	id=txt-password
+click	id=btn-login
